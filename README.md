@@ -1,6 +1,9 @@
 ![image](https://github.com/user-attachments/assets/b9c9a198-1084-4cc6-94d0-e5e11dd7fbd4)
 <br>
+<p style="font-size: 16px;">
 · 프로젝트 URL : http://13.124.111.120:8081/
+<br>
+## 1920 * 1080 권장 사이트입니다.
 <br><br>
 ˙ 작업기간 :  2024.08.01. - 2024.08.15 (2주)
 <br><br>
@@ -73,3 +76,4 @@ Spring Boot에 대하여 더 알아가기 위하여 제작한 풀스택 프로�
 코드 블로그:
 https://velog.io/@rihyri/SpringBoot-%EA%B2%8C%EC%8B%9C%ED%8C%90-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-1.-%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-o92zx8of
 <br>
+</p>
