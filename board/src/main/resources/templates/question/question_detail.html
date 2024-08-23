@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml" >
+<body>
+<div layout:fragment="content" style="height: 100%">
+    <div class="container my-3" style="height: 100%;">
+        <h2 th:text="${question.subject}"></h2>
+        <div th:if="${question.modifyDate != null}" class="border-bottom py-2">
+            <div class="mb-2">modified at</div>
+            <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+        </div>
+        <div th:if="${question.modifyDate == null}" class="border-bottom py-2 mb-2" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+        <div class="mb-2">
+            <span th:if="${question.author != null}" th:text="${question.author.nickname}"></span>
+        </div>
+        <div class="card-text question_content" th:utext="${@commonUtil.markdown(question.content)}"></div>
+
+        <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+           th:if="${#authentication.getPrincipal().getUsername() != question.author.username}"
+           th:data-uri="@{|/question/vote/${question.id}|}">
+            추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+        </a>
+
+        <a href="javascript:void(0);" class="not_recommend btn btn-sm btn-outline-secondary"
+           th:if="${#authentication.getPrincipal().getUsername() == question.author.username}"
+           th:data-uri="@{|/question/vote/${question.id}|}">
+            추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+        </a>
+
+        <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
+           sec:authorize="isAuthenticated()"
+           th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+           th:text="수정"></a>
+
+        <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
+           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+           th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+           th:text="삭제"></a>
+
+        <h5 class="border-bottom mt-5 mb-4 py-2" th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+
+        <div class="card my-3" th:if="${topAnswer != null && maxVotes != 0}" th:each="topAnswer : ${topAnswers}">
+            <div class="card-body" style="background-color:#FFAAAA;" th:object="${topAnswer}">
+                <div class="mb-2 d-flex flex-row nick-img">
+                    <div class="list_img">
+                        <img th:src="${userImages[topAnswer.author.id]}" alt="프로필 사진">
+                    </div>
+                    <span th:text="${userNicknames[topAnswer.author.id]}" style="font-weight: bold; color:black;"></span>
+                    <div class="best_answer">★Best★</div>
+                </div>
+                <div class="card-text" th:text="${topAnswer.content}" style="white-space: pre-line;"></div>
+            </div>
+        </div>
+
+        <div class="card my-3" th:each="answer : ${question.answerList}">
+            <a th:id="|answer_${answer.id}|"></a>
+            <div class="card-body">
+                <div class="mb-2 d-flex flex-row nick-img">
+                    <div class="list_img">
+                        <img th:src="${userImages[answer.author.id]}" alt="프로필사진">
+                    </div>
+                    <a th:href="@{/user/page(userNickname=${answer.author.nickname})}"
+                       th:if="${answer.author != null}" th:text="${answer.author.nickname}"
+                       class="my_page_href"></a>
+                    <div class="badge bg-light text-dark p-2 text-start answer_date">
+                        <div th:if="${answer.modifyDate != null}" th:text="'modified at ' + ${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        <div th:if="${answer.modifyDate == null}" th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
+                </div>
+                <div class="card-text" style="white-space: pre-line; color: #555; margin: 20px 0;" th:text="${answer.content}"></div>
+                <div class="d-flex justify-content-end">
+                </div>
+
+                <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                   th:if="${#authentication.getPrincipal().getUsername() != answer.author.username}"
+                   th:data-uri="@{|/answer/vote/${answer.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+                </a>
+
+                <a href="javascript:void(0);" class="not_recommend btn btn-sm btn-outline-secondary"
+                   th:if="${#authentication.getPrincipal().getUsername() == answer.author.username}"
+                   th:data-uri="@{|/answer/vote/${answer.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+                </a>
+
+                <a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary" sec:authorization="isAuthenticated()"
+                   th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+                   th:text="수정"></a>
+                <a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"
+                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                   th:if="${answer.author != null and #authentication.getPrincipal().getUsername == answer.author.username}" th:text="삭제"></a>
+
+            </div>
+        </div>
+        <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3">
+            <div th:if="${#fields.hasAnyErrors()}">
+                <div class="error-class mb-3" th:errors="*{content}"></div>
+            </div>
+            <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="5" id='my-input'></textarea>
+            <input type="submit" id="answerSubmitButton" value="답변등록" class="btn btn-warning my-2">
+        </form>
+    </div>
+</div>
+
+<th:block layout:fragment="javascript">
+    <script>
+    $(document).ready(function() {
+
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+
+
+    const recommend_elements = document.getElementsByClassName("recommend");
+    Array.from(recommend_elements).forEach(function(element) {
+        element.dataset.recommended = 'false';
+        element.addEventListener('click', function() {
+            if (this.dataset.recommended === 'true') {
+                alert("이미 추천하였습니다.");
+            } else {
+                if (confirm("정말로 추천하시겠습니까?")) {
+                    this.dataset.recommended = 'true';
+                    location.href = this.dataset.uri;
+                }
+            }
+        });
+    });
+
+
+    const not_elements = document.getElementsByClassName("not_recommend");
+    Array.from(not_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            alert("본인이 작성한 글은 추천할 수 없습니다.");
+        });
+    });
+});
+
+    function replyClick(buttonElement) {
+        var myInput = document.getElementById('my-input');
+
+        myInput.value= nickname + "";
+    }
+
+        document.getElementById('answerSubmitButton').addEventListener('click', function(event) {
+        var content = document.getElementById('my-input').value.trim();
+        if (content === '') {
+            alert('댓글 내용을 입력해 주세요.');
+            event.preventDefault();
+            }
+        });
+    </script>
+</th:block>
+</body>
+</html>

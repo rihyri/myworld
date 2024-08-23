@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container my-3"style="height: 80%;">
+        <div class="d-flex justify-content-between">
+            <div class="message_menu w-25">
+                <a th:href="@{/messages/received/list}">수신쪽지함<span th:text="${unreadMessages != null ? #lists.size(unreadMessages) : 0}"></span></a>
+                <a th:href="@{/messages/sent}">발신쪽지함</a>
+                <a th:href="@{/messages/insert}" class="message_active">쪽지보내기</a>
+                <a th:href="@{/messages/self}">내게 쓴 쪽지함</a>
+            </div>
+            <div class="message_table w-75 message_success">
+                <div class="message_img">
+                    <img th:src="@{/img/message.png}" alt="메시지">
+                </div>
+                <h3>메시지가 성공적으로 보내졌습니다.</h3>
+                <div class="message_button">
+                    <a th:href="@{/messages/sent}" class="btn btn-warning">보낸 메시지 보기</a>
+                    <a th:href="@{/messages/self}" class="btn btn-warning">내게 쓴 메시지 보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

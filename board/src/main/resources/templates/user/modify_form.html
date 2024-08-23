@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content" class="container">
+    <form role="form" method="post" enctype="multipart/form-data" th:object="${userModifyFormDto}">
+        <table class="table table-bordered align-middle">
+            <tr>
+                <th style="background-color: #FFEC9E; text-align:center;">프로필사진</th>
+                <th class="p-4">
+                    <div class="profile_image mb-4">
+                        <img th:src="${url}" alt="프로필사진" class="profile_image">
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div th:if="${#lists.isEmpty(userModifyFormDto.userImgDtoList)}">
+                            <div class="form-group" th:each="num: ${#numbers.sequence(1,1)}">
+                                <div class="custom-file img-div">
+                                    <input type="file" class="input-group" name="userImgFile" id="userImgFile">
+                                    <input type="hidden" name="user_id" th:value="${userId}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if = "${not #lists.isEmpty(userModifyFormDto.userImgDtoList)}">
+                            <div class="form-group" th:each="userImgDto, status: ${userModifyFormDto.userImgDtoList}">
+                                <div class="custom-file img-div">
+                                    <div th:if="${#fields.hasErrors('userImgFile')}">
+                                        <div class="error-class mb-3" th:errors="*{userImgFile}"></div>
+                                    </div>
+                                    <input type="file" class="custom-file-input" name="userImgFile">
+                                    <input type="hidden" name="itemImgId" th:value="${userModifyFormDto.id}">
+                                    <input type="hidden" name="user_id" th:value="${userId}">
+                                    <label class="custom-file-label" th:text="${not #strings.isEmpty(userImgDto.oriImgName)} ? ${userImgDto.oriImgName} : '프로필 이미지' + ${status.index+1}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:href="@{/user/modify/delete}" class="btn btn-success" style="color: #fff !important;">사진 삭제</a>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th style="background-color: #FFEC9E; text-align:center;">닉네임</th>
+                <th>
+                    <div th:if="${#fields.hasErrors('nickname')}">
+                        <div class="error-class mb-3" th:errors="*{nickname}"></div>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" name="nickname" id="nickname" th:value="${nickname}" style="width: 100%;">
+                        <input type="hidden" name="user_id" th:value="${userId}">
+                    </div>
+                </th>
+            </tr>
+        </table>
+        <div th:if="${#strings.isEmpty(userModifyFormDto.id)}" style="text-align:center">
+            <button th:foraction="@{/user/modify}" type="submit" class="btn btn-warning" onclick="validate()">저장</button>
+            <a th:href="@{/user/alter/password}" class="btn btn-success" style="color: #fff !important">비밀번호 변경</a>
+        </div>
+    </form>
+</div>
+<th:block layout:fragment="javascript">
+    <script th:inline="javascript">
+        function validate() {
+            var fileInput = document.getElementById('userImgFile');
+            var filePath = fileInput.value;
+
+            if (filePath === '') {
+                return true;
+            }
+
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
+            if (!allowedExtensions.exec(filePath)) {
+                alert('이미지 파일만 업로드할 수 있습니다. (.jpg, .jpeg, .png, .gif, .bmp, .webp)');
+                fileInput.value = ''; // 파일 입력 초기화
+                return false;
+            }
+            return true;
+        }
+    </script>
+</th:block>
+</body>
+</html>

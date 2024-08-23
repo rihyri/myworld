@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container my-3" style="height: 80%;">
+        <div class="d-flex justify-content-between">
+            <div class="message_menu w-25">
+                <a th:href="@{/messages/received/list}">수신쪽지함<span th:text="${unreadMessages != null ? #lists.size(unreadMessages) : 0}"></span></a>
+                <a th:href="@{/messages/sent}">발신쪽지함</a>
+                <a th:href="@{/messages/insert}" class="message_active">쪽지보내기</a>
+                <a th:href="@{/messages/self}">내게 쓴 쪽지함</a>
+            </div>
+            <div class="message_table w-75" >
+                <form th:action="@{/messages/insert}" method="post" th:object="${messageForm}" class="messageForm">
+
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <div class="error-class mb-3" th:errors="*{receiverName}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="receiverName" class="form-label">받는 분 (닉네임을 입력해 주세요.)</label>
+                        <button class="btn btn btn-success" id="selfButton" style="padding: 0.2rem 0.4rem; font-size: 15px; margin-left: 0.5vw;">내게쓰기</button>
+                        <input type="text" th:field="*{receiverName}" name="receiverName" id="receiverName" class="form-control">
+                    </div>
+
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <div class="error-class mb-3" th:errors="*{title}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">제목</label>
+                        <input type="text" th:field="*{title}" name="title" id="title" class="form-control">
+                    </div>
+
+                    <div th:if="${#fields.hasAnyErrors()}">
+                        <div class="error-class mb-3" th:errors="*{content}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">내용</label>
+                        <textarea name="content" th:field="*{content}" id="content" class="form-control" rows="10"></textarea>
+                    </div>
+                    <input type="submit" value="전송하기" class="btn btn-warning my-2">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="javascript">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+
+            var selfButton = document.getElementById('selfButton');
+            var receiverName = document.getElementById('receiverName');
+            var nickname = [[${nickname}]]
+
+            selfButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                receiverName.value = nickname;
+            });
+        });
+    </script>
+</th:block>
+</body>
+</html>

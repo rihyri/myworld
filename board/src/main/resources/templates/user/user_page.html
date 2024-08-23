@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content" class="container">
+        <table class="table table-bordered align-middle" style="width:30%;">
+            <tr>
+                <th style="background-color: #FFEC9E; text-align:center;">프로필사진</th>
+                <th class="p-4">
+                    <div class="profile_image mb-4">
+                        <img th:src="${url}" alt="프로필사진" class="profile_image">
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th style="background-color: #FFEC9E; text-align:center;">닉네임</th>
+                <th>
+                    <h3 th:text="${user.nickname}" style="text-align: center;"></h3>
+                </th>
+            </tr>
+        </table>
+        <a th:href="@{/messages/insert(receiverName=${user.nickname})}" class="btn btn-success" style="margin-top: 1.3vw; color: #fff !important;">쪽지 보내기</a>
+</div>
+</body>
+</html>

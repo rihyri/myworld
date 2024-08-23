@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content" class="container">
+    <div class="my-3 border-bottom">
+        <div>
+            <h4>회원가입</h4>
+        </div>
+    </div>
+    <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+        <div th:if="${#fields.hasErrors('username')}">
+            <div class="error-class mb-3" th:errors="*{username}"></div>
+        </div>
+        <div class="mb-3">
+            <div id="result"></div>
+            <label for="username" class="form-label">이메일</label>
+            <div class="row">
+                <div class="col">
+                    <input type="text" th:field="*{username}" id="username" class="form-control">
+                </div>
+                <div class="col">
+                    <button class="btn btn-outline-primary" type="button" id="checkEmail">인증번호</button>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${#fields.hasErrors('memailconfirm')}">
+            <div class="error-class mb-3" th:errors="*{memailconfirm}"></div>
+        </div>
+        <div class="mb-3 check_input">
+            <label class="form-label" for="memailconfirm" id="memailconfirmTxt">인증번호 입력</label>
+            <input type="text" th:field="*{memailconfirm}" id="memailconfirm" class="form-control">
+        </div>
+
+        <div th:if="${#fields.hasErrors('nickname')}">
+            <div class="error-class mb-3" th:errors="*{nickname}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="nickname" class="form-label">닉네임</label>
+            <input type="text" th:field="*{nickname}" id="nickname" class="form-control">
+        </div>
+
+        <div th:if="${#fields.hasErrors('password1')}">
+            <div class="error-class mb-3" th:errors="*{password1}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password" th:field="*{password1}" id="password1" class="form-control">
+        </div>
+
+        <div th:if="${#fields.hasErrors('password2')}">
+            <div class="error-class mb-3" th:errors="*{password2}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" th:field="*{password2}" id="password2" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-warning">회원가입</button>
+    </form>
+</div>
+
+<th:block layout:fragment="javascript">
+    <script>
+    $(document).ready(function() {
+    const _checkEmail = $("#checkEmail");
+    const _memailconfirm = $("#memailconfirm");
+
+    _checkEmail.click(function() {
+
+        if (!validateEmail()) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/user/login/mailConfirm",
+            data: {
+                "username": $("#username").val(),
+                "_csrf": $("input[name='_csrf']").val()
+            },
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(data) {
+                alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+                chkEmailConfirm(data, _memailconfirm, $("#memailconfirmTxt"))
+            }
+        });
+    });
+
+    function chkEmailConfirm(data, memailconfirm, memailconfirmTxt) {
+        memailconfirm.on("keyup", function() {
+            if (data != memailconfirm.val()) {
+                var emconfirmchk = false;
+                memailconfirmTxt.html("<span id='emconfirmchk'>인증번호가 잘못되었습니다.</span>");
+                $("#emconfirmchk").css({
+                    "color": "#FA3E3E",
+                    "font-weight": "bold",
+                    "font-size": "13px"
+                });
+            } else {
+                var emconfirmchk = true;
+                memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>");
+                $("#emconfirmchk").css({
+                    "color": "#0D6EFD",
+                    "font-weight": "bold",
+                    "font-size": "13px"
+                });
+            }
+        });
+    }
+
+
+    function emailCheck(email_address) {
+        var email_regrex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+        return email_regrex.test(email_address);
+    }
+
+    function validateEmail() {
+        var resultDiv = $("#result");
+        var email = $("#username").val();
+
+
+        if (!emailCheck(email)) {
+            resultDiv.html('이메일 형식을 확인해 주세요.');
+
+            resultDiv.css({
+            "font-size": "16px",
+            "color": "red",
+            "margin-bottom": "8px"
+            });
+
+            return false;
+        } else {
+            resultDiv.html('');
+            return true;
+        }
+        }
+    });
+</script>
+</th:block>
+</body>
+</html>

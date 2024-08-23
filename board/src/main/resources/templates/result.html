@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content" class="container">
+    <div class="my-3 border-bottom">
+        <div class="img_key">
+            <img th:src="@{/img/key.png}" alt="key">
+        </div>
+        <h3 th:text="${message}"></h3>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<div layout:fragment="content">
+    <div class="container my-3" style="height:70vh;">
+        <h2 th:text="${notice.subject}"></h2>
+        <div class="border-bottom py-2 mb-2" th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+        <p th:text="${notice.author.nickname}"></p>
+        <div class="card-text question_content" th:text="${notice.content}"></div>
+        <a th:href="@{|/notice/modify/${notice.id}|}" class="btn btn-sm btn-outline-secondary"
+           sec:authorize="isAuthenticated()" th:if="${notice.author != null and #authentication.getPrincipal().getUsername == notice.author.username}" th:text="수정"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/notice/delete/${notice.id}|}" class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()" th:if="${notice.author != null and #authentication.getPrincipal().getUsername == notice.author.username}" th:text="삭제"></a>
+    </div>
+</div>
+
+<th:block layout:fragment="javascript">
+    <script>
+    $(document).ready(function() {
+        const delete_elements = document.getElementsByClassName("delete");
+        Array.from(delete_elements).forEach(function(element) {
+            element.addEventListener('click', function() {
+                if (confirm("정말로 삭제하시겠습니까?")) {
+                    location.href = this.dataset.uri;
+                };
+            });
+        });
+    });
+    </script>
+</th:block>
+
+</body>
+</html>
+
+
+
+
+

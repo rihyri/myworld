@@ -1,0 +1,399 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GowunBatang-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunBatang-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+header {
+    padding-bottom: 10px;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a {
+    display:inline-block !important;;
+    color: black !important;
+    text-decoration-line: none !important;;
+}
+
+textarea {
+    width: 100%;
+}
+
+input[type=text] {
+    width: 20vw;
+}
+
+input[type=submit] {
+    margin-top: 10px;
+}
+
+
+.board-content {
+    margin: 4rem 0 6rem;
+}
+
+.error-class {
+    color: red;
+    border-color: red;
+    font-weight:500;
+}
+
+.submit-btn {
+    display:inline-block !important;
+}
+
+.nav {
+    /* margin: 30px 0; */
+}
+
+.nav-link {
+    padding:0 !important;
+    margin-right:1vw;
+    font-size: 17px !important;
+}
+
+.nav-link:hover {
+    font-weight: bold;
+}
+
+* {
+   margin:0;
+   padding:0;
+}
+
+li {
+     list-style: none;
+}
+
+img {
+     width: 100%;
+}
+
+footer {
+     width:100%;
+     display: flex;
+     flex-flow: column;
+     justify-content: center;
+     font-size: 13px;
+     text-align:center;
+}
+
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    text-align:center;
+}
+
+.main-figure {
+    width: 50%;
+}
+
+.h1_title {
+    font-size: 50px;
+}
+
+.h1_title span {
+    color: red;
+}
+
+.h-0 {
+    height: 0;
+    position: relative;
+}
+
+.active>.page-link {
+    background-color:#FFC47E !important;
+    border-color:#FFAD84 !important;
+}
+
+.pagination {
+    --bs-pagination-disabled-bg: #F9E897 !important;
+    --bs-pagination-disabled-border-color: #FFE382 !important;
+     margin-top: 5vh;
+}
+
+.pagination li a {
+    font-size: 13px;
+}
+
+.question_content {
+    margin: 15vh 0;
+}
+
+.btn-outline-secondary {
+    --bs-btn-hover-bg:#FFC47E !important;
+    --bs-btn-border-color: #FFC47E !important;
+    --bs-btn-bg: #F9E897 !important;
+    --bs-btn-hover-border-color: #FFAD84 !important;
+    --bs-btn-hover-color: #333 !important;
+}
+
+.mo-table {
+    background-color: red;
+}
+
+.profile_image {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    margin:0 auto;
+    object-fit: cover;
+
+}
+
+.nick-img {
+     display: flex;
+      align-items: center;
+}
+
+
+.list_img img {
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 0.5vw;
+}
+
+
+.best_answer {
+    background-color: #5356FF;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.answer_date {
+    font-size: 11px !important;
+}
+
+.viewed td, .viewed td a {
+    color: #777777 !important;
+}
+
+.message_menu {
+    padding-right: 3vw;
+}
+
+.message_menu a {
+    display: block !important;
+    padding: 0.3vw 0;
+    padding-left: 1vw;
+    font-size: 14px;
+}
+
+.message_menu a span {
+    font-size: 12px;
+    padding: 3px 5px;
+    background-color: #FFA823;
+    margin-left: 8px;
+    border-radius: 4px;
+    font-weight:bold;
+}
+
+.message_menu .message_active {
+    background-color:#DDDDDD;
+    font-weight:bold;
+}
+
+
+
+.message_table table tr, .message_table table td {
+    font-size: 14px;
+}
+
+.message_table p {
+    margin-bottom: 2vw;
+}
+
+.messageForm {
+    margin:0 auto;
+}
+
+.messageForm label {
+    font-weight:bold;
+}
+
+.messageForm input, .messageForm textarea {
+    margin-top: 0.5vw;
+    margin-bottom: 0.8vw;
+    width: 100%;
+}
+
+.messageForm input[type=submit] {
+    width: auto;
+}
+
+.message_detail {
+    border: 1px solid #B4B4B8;
+    border-radius: 10px;
+    height: 60vh;
+    padding: 3vw 4vw;
+    background-color: #FFFAE6;
+}
+
+.message_detail p {
+    font-size: 20px;
+    padding-bottom: 1.3vw;
+    margin-bottom: 0;
+    border-bottom:1px solid grey;
+}
+
+.message_content {
+    font-size: 15px;
+    margin-top: 3vw;
+    display: block;
+}
+
+.message_date {
+    font-size: 12px;
+    display:inline;
+    margin: 1vw 0;
+}
+
+
+.board_img {
+    display:flex;
+    justify-content:center;
+}
+
+.board_img img {
+    width: 16vw;
+}
+
+
+.board-menu li a {
+    padding: 9px;
+    font-size: 15px;
+}
+
+.board_active {
+    font-weight: 600;
+    border-bottom: 4px solid #FFBB70;
+    margin-bottom: 1vw;
+}
+
+.board_table {
+    font-size: 15px;
+    margin-top: 0.7vw;
+}
+
+.message_img {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 20vh;
+    padding-right: 2vw;
+}
+
+.message_img img {
+    width: 8vw;
+}
+
+.message_success h3 {
+    text-align:center;
+}
+
+.message_button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin:0 auto;
+    margin-top: 1.5vw;
+}
+
+.message_button a {
+    margin: 0 0.5vw;
+}
+
+.message_button a:hover {
+    background-color: orange;
+}
+
+.index-background {
+    width: 100vw;
+    height: 80vh;
+    position: relative;
+}
+
+.index_text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10%;
+    font-family: 'GowunBatang-Regular';
+    z-index: 100;
+}
+
+.index_text h1, .index_text h2 {
+    font-size: 4rem;
+    color: #FFC55A;
+}
+
+
+.index_text h2 {
+    margin-bottom: 3vw;
+    text-align: right;
+}
+
+.index_text h3 {
+    text-align: right;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.my_page_href {
+    font-weight: bold;
+    color:black;
+    margin-right: 15px;
+    border-bottom: 2px dashed white;
+}
+
+.my_page_href:hover {
+    border-bottom: 2px dashed #FF9800;
+}
+
+.index_bg {
+    height: 100%;
+    width: 28%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    right: 8%;
+}
+
+#tempPasswordForm {
+    padding: 5vw;
+    border: 1px solid #C7C8CC;
+    border-radius: 10px;
+}
+
+.img_key {
+    width: 10vw;
+    margin: 0 auto;
+    margin-bottom: 2.5vw;
+}
+
+.password_form input[type=password] {
+    width: 20vw;
+}

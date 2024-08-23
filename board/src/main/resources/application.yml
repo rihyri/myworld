@@ -1,0 +1,33 @@
+#mail:
+#  host: smtp.gmail.com
+#  port: 587
+#  username: "hyerijw1221@naver.com"
+#  password: "qdxy vlia wswn vepm"
+#  properties:
+#    mail:
+#      smtp:
+#        auth: true
+#        starttls:
+#          enable: true
+#          required: true
+#        connectiontimeout: 5000
+#        timeout: 5000
+#        writetimeout: 5000
+#  auth-code-expiration-millis: 1800000
+#
+#jpa:
+#  hibernate:
+#    ddl-auto: create-drop
+#  properties:
+#    hibernate:
+#      format_sql: true
+#      show_sql: true
+#
+#logging:
+#  level:
+#    com.example: DEBUG
+#
+#jwt:
+#  header: Authorization
+#  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+#  token-validity-in-seconds: 86400

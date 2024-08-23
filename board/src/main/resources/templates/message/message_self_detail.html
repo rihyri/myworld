@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container my-3"style="height: 80%;">
+    <div class="d-flex justify-content-between">
+      <div class="message_menu w-25">
+        <a th:href="@{/messages/received/list}">수신쪽지함<span th:text="${#lists.size(unreadMessages)}"></span></a>
+        <a th:href="@{/messages/sent}">발신쪽지함</a>
+        <a th:href="@{/messages/insert}">쪽지보내기</a>
+        <a th:href="@{/messages/self}" class="message_active">내게 쓴 쪽지함</a>
+      </div>
+      <div class="message_table w-75 message_detail">
+        <a href="javascript:void(0);" th:data-uri="@{|/messages/self/${message.id}|}" class="delete btn btn-sm btn-outline-secondary float-end" sec:authorize="isAuthenticated()" th:text="삭제" style="display: block !important; width:80px;"></a>
+        <p th:text="${message.title}"></p>
+        <span th:text="${#temporals.format(message.createDate, 'yyyy-MM-dd HH:mm')}" class="float-end message_date"></span>
+        <span th:text="${message.content}" class="message_content"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<th:block layout:fragment="javascript">
+  <script>
+  $(document).ready(function() {
+    const delete_elements = document.getElementsByClassName("delete");
+      Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+          if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+          };
+        });
+      });
+  });
+</script>
+
+</th:block>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<div th:fragment="headerFragment">
+    <div class="container" style="height: 10vh; display: flex; align-items: end; padding-bottom: 3vh;">
+        <ul class="nav d-flex bd-highlight mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">홈으로</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/question/list}">게시판</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/user/modify}">마이페이지</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/messages/received/list}">쪽지함</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" th:href="@{/user/login}">로그인</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{/user/logout}">로그아웃</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAnonymous()">
+                <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
