@@ -1,6 +1,6 @@
 ![image](https://github.com/user-attachments/assets/b9c9a198-1084-4cc6-94d0-e5e11dd7fbd4)
 <br>
-<p style="font-size: 16px;">
+<p style="font-size: 13px;">
 · 프로젝트 URL : http://13.124.111.120:8081/
 <br>
 ## 1920 * 1080 권장 사이트입니다.
