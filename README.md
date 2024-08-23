@@ -2,19 +2,20 @@
 <br>
 
 ˙ 작업기간 :  2024.08.01. - 2024.08.15 (2주)
-<br>
+<br><br>
 ˙ 작업인원 :  1명 (이혜리)
-<br>
+<br><br>
 ˙ 작업툴 :  
           java, Spring Boot(async-await), JPA, Maria DB, intelliJ,
           Ajax, thyemleaf, API통신, AWS,
           html, css, java script, jqery, figma, Boot Strap
-<br>
+<br><br>
 ˙ 개발 환경
  IDE : intelliJ
  java version : 17
  build system : gradle - groovy
  spring framework ver: 3.3.2 
+<br>
 <br>
 Spring Boot에 대하여 더 알아가기 위하여 제작한 풀스택 프로젝트입니다.
 
