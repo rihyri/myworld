@@ -56,6 +56,7 @@ Spring Boot에 대하여 더 알아가기 위하여 제작한 풀스택 프로�
 - 세 번째로 프로필 이미지 변경 가능. '삭제'버튼을 누르거나 이미지가 아무것도 없는 경우는 프로필 이미지가 default로 설정. 그 외 이미지 파일을 입력 시 프로필 사진이 변경된다.
 - 이미지 외 다른 파일을 입력하였을 경우 alert창이 뜨며 프로필 사진 변경 불가능.
 <br>
+
 ![image](https://github.com/user-attachments/assets/8fa2ac86-084c-4e73-b5ff-ed404e9a3033)
 
 
